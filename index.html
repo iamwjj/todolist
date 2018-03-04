@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TODO list</title>
+</head>
+<body>
+	<section id="todoapp">
+		<header class="header">
+			<h1>{{title}}</h1>
+			<input type="text" class="new-todo"
+				v-model="newTodo"
+				@keyup.enter="addTodo" 
+				autofocus autocomplete="false" 
+				placeholder="what needs to be done?">
+		</header>
+		<section class="notodo" v-show="!todos.length">
+			<span class="tips">There is nothing to do!</span>
+		</section>
+		<section class="main" v-show="todos.length" v-cloak>
+			<input class="toggle-all" type="checkbox" v-model="allDone">
+			<ul class="todo-list">
+				<li v-for="todo in todos" :class="{completed: todo.completed}">
+					<div class="view">
+						<input class="toggle" type="checkbox" v-model="todo.completed">
+						<label>{{todo.text}}</label>
+						<button class="destroy" @click="removeTodo(todo)"></button>
+					</div>
+				</li>
+			</ul>
+		</section>
+		
+	</section>
+</body>
+</html>
