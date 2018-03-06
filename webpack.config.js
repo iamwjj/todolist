@@ -1,6 +1,7 @@
 let path = require('path');
 let HtmlWebpcakPlugin =  require('html-webpack-plugin');
-let ExtractTextPlugin = require('extract-text-webpack-plugin')
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
+let CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
 	entry:{
@@ -36,9 +37,19 @@ module.exports = {
 
 	plugins:[
 		new HtmlWebpcakPlugin({
-			template:'./index.html'
+			template:'./index.html',
+			filename:'popup.html'
 		}),
-		new ExtractTextPlugin("style.css")
+		new ExtractTextPlugin("style.css"),
+		new CopyPlugin([
+			{
+				from: __dirname + '/img',
+				to: 'img'
+			},
+			{
+				from: __dirname + '/manifest.json',
+			}
+		])
 	],
 
 	resolve:{
