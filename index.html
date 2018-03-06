@@ -3,9 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>TODO list</title>
+	<style type="text/css">
+		[v-cloak]{
+			display: none;
+		}
+	</style>
 </head>
 <body>
-	<section id="todoapp">
+	<section id="todoapp" v-cloak>
 		<header class="header">
 			<h1>{{title}}</h1>
 			<input type="text" class="new-todo"
@@ -14,20 +19,34 @@
 				autofocus autocomplete="false" 
 				placeholder="what needs to be done?">
 		</header>
-		<section class="notodo" v-show="!todos.length">
+		<section class="notodo" v-show="!filterTodos.length && visibility!='completed'">
 			<span class="tips">There is nothing to do!</span>
 		</section>
-		<section class="main" v-show="todos.length" v-cloak>
+		<section class="main" v-show="filterTodos.length">
 			<input class="toggle-all" type="checkbox" v-model="allDone">
 			<ul class="todo-list">
-				<li v-for="todo in todos" :class="{completed: todo.completed}">
+				<li v-for="(todo, index) in filterTodos" :class="{completed: todo.completed}">
 					<div class="view">
-						<input class="toggle" type="checkbox" v-model="todo.completed">
-						<label>{{todo.text}}</label>
+						<input :id="'toggle' + index" class="toggle" type="checkbox" v-model="todo.completed">
+						<label :for="'toggle' + index">{{todo.text}}</label>
 						<button class="destroy" @click="removeTodo(todo)"></button>
 					</div>
 				</li>
 			</ul>
+		</section>
+		<footer class="footer">
+			<span class="todo-count">
+				<strong>{{remaining}}</strong> {{remaining | pluralize}} left
+			</span>
+			<ul class="filters">
+				<li><a href="#/all" :class="{selected: visibility == 'all'}">All</a></li>
+				<li><a href="#/active" :class="{selected: visibility == 'active'}">Active</a></li>
+				<li><a href="#/completed" :class="{selected: visibility == 'completed'}">Completed</a></li>
+			</ul>
+			<button class="clear-completed" @click="clearCompleted">
+				Clear Completed
+			</button>
+			
 		</section>
 		
 	</section>

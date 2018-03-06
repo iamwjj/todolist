@@ -1,5 +1,6 @@
 let path = require('path');
 let HtmlWebpcakPlugin =  require('html-webpack-plugin');
+let ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
 	entry:{
@@ -18,9 +19,17 @@ module.exports = {
 				use:'babel-loader',
 				exclude:'/node_modules'
 			},
+			// {
+			// 	test: /\.css$/,
+			// 	use: ["style-loader", "css-loader"]
+			// }
+			
 			{
 				test: /\.css$/,
-				use: ["style-loader", "css-loader"]
+				use: ExtractTextPlugin.extract({
+					fallback: "style-loader",
+					use: "css-loader"
+				})
 			}
 		]
 	},
@@ -28,7 +37,8 @@ module.exports = {
 	plugins:[
 		new HtmlWebpcakPlugin({
 			template:'./index.html'
-		})
+		}),
+		new ExtractTextPlugin("style.css")
 	],
 
 	resolve:{
