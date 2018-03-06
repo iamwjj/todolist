@@ -41,12 +41,9 @@ body {
 	display: none;
 }
 
-html{
-	min-width:550px;
-	min-height:940px;
-}
-
 #todoapp {
+	min-width:550px;
+	min-height:500px;
 	background: #fff;
 	margin: 130px 0 40px 0;
 	position: relative;
