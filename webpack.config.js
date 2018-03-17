@@ -38,7 +38,7 @@ module.exports = {
 	plugins:[
 		new HtmlWebpcakPlugin({
 			template:'./index.html',
-			filename:'popup.html'
+			filename:'index.html'
 		}),
 		new ExtractTextPlugin("style.css"),
 		new CopyPlugin([
