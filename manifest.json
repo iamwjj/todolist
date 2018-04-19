@@ -12,6 +12,5 @@
     	"default_icon": "img/icon.png",
     	"default_popup": "index.html"
   	},
-  	//使用Vue开发Chrome插件的时候需要加上下面这行
   	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

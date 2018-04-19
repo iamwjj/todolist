@@ -5,12 +5,12 @@ let CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
 	entry:{
-		app:'./main.js'
+		app:'./src/main.js'
 	},
 
 	output:{
 		path: path.resolve(__dirname, './dist'),
-		filename: '[name].js'
+		filename: '[name].js?hash=[hash:5]'
 	},
 
 	module:{
@@ -20,10 +20,6 @@ module.exports = {
 				use:'babel-loader',
 				exclude:'/node_modules'
 			},
-			// {
-			// 	test: /\.css$/,
-			// 	use: ["style-loader", "css-loader"]
-			// }
 			
 			{
 				test: /\.css$/,
@@ -37,13 +33,13 @@ module.exports = {
 
 	plugins:[
 		new HtmlWebpcakPlugin({
-			template:'./index.html',
+			template:'./src/index.html',
 			filename:'index.html'
 		}),
 		new ExtractTextPlugin("style.css"),
 		new CopyPlugin([
 			{
-				from: __dirname + '/img',
+				from: __dirname + '/src/img',
 				to: 'img'
 			},
 			{
@@ -52,12 +48,17 @@ module.exports = {
 		])
 	],
 
-	resolve:{
+    devServer: {
+		port:'8080'
+	},
+
+    resolve:{
 		alias:{
 			'vue':'vue/dist/vue.js'
 		}
 	},
 
+	//这里并不需要这样配置，我只是想尝试一下。
 	mode:process.env.NODE_ENV=='development'?'development':'production',
 
 }
